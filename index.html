@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Square One Consulting | Party Wall Surveyors</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --slate: #1b2d40;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f5f0e8;
+    --white: #ffffff;
+    --grey: #6b7280;
+    --light-grey: #f0ede8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+    height: 72px;
+    background: rgba(13,27,42,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .logo-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.04em;
+  }
+  .logo-sub {
+    font-size: 0.62rem;
+    font-weight: 300;
+    color: var(--gold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0.2rem;
+    list-style: none;
+  }
+  .nav-links li a {
+    display: block;
+    padding: 0.45rem 1rem;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .nav-links li a:hover,
+  .nav-links li a.active {
+    color: var(--gold);
+    background: rgba(201,168,76,0.1);
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── HERO (HOME) ── */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 620px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(135deg, rgba(13,27,42,0.88) 0%, rgba(13,27,42,0.55) 60%, transparent 100%),
+      url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80') center/cover no-repeat;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    padding: 0 3rem;
+    margin-top: 72px;
+    animation: fadeUp 0.9s ease both;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 0.35rem 0.9rem;
+    border-radius: 2px;
+    margin-bottom: 1.6rem;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.08;
+    margin-bottom: 1.6rem;
+  }
+  .hero h1 span { color: var(--gold); font-weight: 600; }
+  .hero p {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.7;
+    max-width: 520px;
+    margin-bottom: 2.4rem;
+    font-weight: 300;
+  }
+  .btn-primary {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    padding: 0.85rem 2.2rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s;
+    border-radius: 2px;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    display: inline-block;
+    background: transparent;
+    color: var(--white);
+    padding: 0.85rem 2.2rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.4);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s;
+    border-radius: 2px;
+    margin-left: 1rem;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* Hero stats bar */
+  .hero-stats {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(201,168,76,0.95);
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    padding: 1.4rem 3rem;
+    z-index: 2;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(13,27,42,0.7);
+    margin-top: 0.25rem;
+  }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 6rem 3rem; }
+  .section-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 400;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+  .section-body {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #3d4f5e;
+    max-width: 640px;
+    font-weight: 300;
+  }
+
+  /* Home — services */
+  .services-section { background: var(--cream); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    margin-top: 3.5rem;
+    max-width: 1100px;
+  }
+  .service-card {
+    background: var(--white);
+    padding: 2.2rem;
+    border-radius: 4px;
+    border-top: 3px solid var(--gold);
+    box-shadow: 0 4px 24px rgba(13,27,42,0.06);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .service-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(13,27,42,0.12); }
+  .service-icon {
+    width: 46px; height: 46px;
+    background: rgba(201,168,76,0.12);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.2rem;
+    font-size: 1.3rem;
+  }
+  .service-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.7rem;
+  }
+  .service-card p { font-size: 0.9rem; color: var(--grey); line-height: 1.7; }
+
+  /* ── ABOUT PAGE ── */
+  .about-hero {
+    height: 52vh;
+    min-height: 380px;
+    background:
+      linear-gradient(to right, rgba(13,27,42,0.9) 40%, rgba(13,27,42,0.5) 100%),
+      url('https://images.unsplash.com/photo-1590674899484-d5640e854abe?w=1400&q=80') center/cover no-repeat;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 3rem 3.5rem;
+    margin-top: 72px;
+  }
+  .page-hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.1;
+  }
+  .page-hero-title span { color: var(--gold); }
+
+  .about-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .about-img-wrap {
+    position: relative;
+  }
+  .about-img-wrap img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+  }
+  .about-img-badge {
+    position: absolute;
+    bottom: -1.5rem;
+    right: -1.5rem;
+    background: var(--gold);
+    color: var(--navy);
+    padding: 1.4rem 1.8rem;
+    border-radius: 4px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(201,168,76,0.35);
+  }
+  .about-img-badge strong {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .about-img-badge span {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .about-text .section-body { max-width: 100%; }
+
+  .values-section { background: var(--navy); }
+  .values-section .section-title,
+  .values-section .section-label { color: var(--white); }
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+    max-width: 1100px;
+  }
+  .value-item {
+    padding: 2rem;
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 4px;
+    transition: border-color 0.25s, background 0.25s;
+  }
+  .value-item:hover { border-color: var(--gold); background: rgba(201,168,76,0.05); }
+  .value-item h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+  .value-item p { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.7; }
+
+  /* ── MEDIATION PAGE ── */
+  .mediation-hero {
+    height: 52vh;
+    min-height: 380px;
+    background:
+      linear-gradient(to right, rgba(13,27,42,0.9) 40%, rgba(13,27,42,0.4) 100%),
+      url('https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1400&q=80') center/cover no-repeat;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 3rem 3.5rem;
+    margin-top: 72px;
+  }
+
+  .mediation-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .mediation-steps { margin-top: 3rem; }
+  .step {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2.2rem;
+    align-items: flex-start;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    background: var(--navy);
+    color: var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+  .step-content h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.4rem;
+  }
+  .step-content p { font-size: 0.9rem; color: var(--grey); line-height: 1.7; }
+
+  .mediation-img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  /* ── PARTY WALL PAGE ── */
+  .pw-hero {
+    height: 52vh;
+    min-height: 380px;
+    background:
+      linear-gradient(to right, rgba(13,27,42,0.9) 40%, rgba(13,27,42,0.45) 100%),
+      url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80') center/cover no-repeat;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 3rem 3.5rem;
+    margin-top: 72px;
+  }
+
+  /* Staggered content blocks */
+  .pw-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 0;
+    border-bottom: 1px solid rgba(13,27,42,0.08);
+  }
+  .pw-block:last-of-type { border-bottom: none; }
+  .pw-block.reverse { direction: rtl; }
+  .pw-block.reverse > * { direction: ltr; }
+  .pw-img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+  }
+  .pw-text { }
+  .pw-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+    font-weight: 400;
+    color: var(--navy);
+    margin-bottom: 1.2rem;
+    line-height: 1.2;
+  }
+  .pw-text p {
+    font-size: 0.97rem;
+    color: #3d4f5e;
+    line-height: 1.85;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+  .pw-text .highlight-box {
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    padding: 1rem 1.4rem;
+    margin-top: 1.2rem;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.9rem;
+    color: var(--navy);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* Intro strip */
+  .pw-intro-strip {
+    background: var(--navy);
+    padding: 4rem 3rem;
+    text-align: center;
+  }
+  .pw-intro-strip p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+    font-weight: 300;
+    color: var(--white);
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  .pw-intro-strip p span { color: var(--gold); font-weight: 600; }
+
+  .pw-sections-wrapper { padding: 0 3rem 5rem; }
+
+  /* ── CONTACT PAGE ── */
+  .contact-hero {
+    height: 45vh;
+    min-height: 320px;
+    background:
+      linear-gradient(to right, rgba(13,27,42,0.92) 40%, rgba(13,27,42,0.5) 100%),
+      url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=80') center/cover no-repeat;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 3rem 3.5rem;
+    margin-top: 72px;
+  }
+
+  .contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 0;
+  }
+  .contact-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+  }
+  .contact-detail {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+  }
+  .contact-detail-icon {
+    width: 40px; height: 40px;
+    background: var(--cream);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .contact-detail-text strong {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-bottom: 0.2rem;
+  }
+  .contact-detail-text span {
+    font-size: 0.97rem;
+    color: var(--navy);
+  }
+
+  .contact-form {
+    background: var(--cream);
+    padding: 3rem;
+    border-radius: 6px;
+  }
+  .contact-form h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--navy);
+    margin-bottom: 2rem;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-bottom: 0.5rem;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: var(--white);
+    border: 1px solid rgba(13,27,42,0.12);
+    border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--navy);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus { border-color: var(--gold); }
+  .form-group textarea { height: 130px; resize: vertical; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    padding: 4rem 3rem 2rem;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-brand .logo-main { font-size: 1.5rem; }
+  .footer-brand p {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.7;
+    margin-top: 1rem;
+    max-width: 300px;
+  }
+  .footer-col h4 {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.6rem; }
+  .footer-col ul li a {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+  .footer-col ul li a:hover { color: var(--gold); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+
+  /* Divider gold */
+  .gold-divider {
+    width: 50px;
+    height: 2px;
+    background: var(--gold);
+    margin: 1rem 0 1.8rem;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .review-card {
+    background: var(--cream);
+    border-radius: 6px;
+    padding: 1.8rem;
+    position: relative;
+    border: 1px solid rgba(13,27,42,0.07);
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .review-card:hover { box-shadow: 0 10px 32px rgba(13,27,42,0.1); transform: translateY(-3px); }
+  .review-card-header { display:flex; align-items:center; gap:0.9rem; margin-bottom:1rem; }
+  .review-avatar {
+    width:42px; height:42px; border-radius:50%;
+    background: var(--navy); color: var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:700;
+    flex-shrink:0;
+  }
+  .review-name { font-weight:600; font-size:0.95rem; color:var(--navy); }
+  .review-date { font-size:0.75rem; color:var(--grey); margin-top:0.15rem; }
+  .review-stars { color:#f5b000; font-size:1rem; letter-spacing:1px; margin-bottom:0.8rem; }
+  .review-text { font-size:0.9rem; color:#3d4f5e; line-height:1.75; font-weight:300; }
+  .review-google-icon { position:absolute; top:1.2rem; right:1.4rem; font-size:1.1rem; opacity:0.25; }
+  @media (max-width: 768px) {
+    nav { padding: 0 1.2rem; }
+    .logo-main { font-size: 1.1rem; }
+    .nav-links { gap: 0; }
+    .nav-links li a { padding: 0.4rem 0.55rem; font-size: 0.68rem; }
+    section { padding: 4rem 1.4rem; }
+    .hero-content { padding: 0 1.4rem; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; padding: 1rem; }
+    .about-intro, .mediation-intro, .pw-block, .contact-wrapper, .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
+    .pw-block.reverse { direction: ltr; }
+    .about-img-badge { right: 0; }
+    .form-row { grid-template-columns: 1fr; }
+    .contact-form { padding: 1.8rem; }
+    .pw-sections-wrapper { padding: 0 1.4rem 3rem; }
+    .pw-img { height: 250px; }
+    .about-img-wrap img { height: 300px; }
+    .mediation-img { height: 280px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <span class="logo-main">Square One</span>
+    <span class="logo-sub">Consulting · Surveyors</span>
+  </div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="showPage('mediation')" id="nav-mediation">Mediation</a></li>
+    <li><a onclick="showPage('partywall')" id="nav-partywall">What is a Party Wall?</a></li>
+    <li><a onclick="showPage('contact')" id="nav-contact">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HOME PAGE ═══ -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">Party Wall Surveyors · London & South East</span>
+      <h1>Expert <span>Party Wall</span> Solutions</h1>
+      <p>Square One Consulting provides professional party wall surveying, dispute resolution and mediation services. Clear advice, delivered with integrity.</p>
+      <a onclick="showPage('contact')" class="btn-primary">Get in Touch</a>
+      <a onclick="showPage('partywall')" class="btn-outline">Learn More</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Years Experience</div></div>
+      <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Cases Handled</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Professional Standards</div></div>
+      <div class="stat"><div class="stat-num">RICS</div><div class="stat-label">Accredited</div></div>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <section class="services-section">
+    <div style="max-width:1100px;margin:0 auto;">
+      <span class="section-label">What We Do</span>
+      <h2 class="section-title">Our Services</h2>
+      <div class="gold-divider"></div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🏗️</div>
+          <h3>Party Wall Surveying</h3>
+          <p>Professional surveying services covering all aspects of the Party Wall etc. Act 1996. We act for both building owners and adjoining owners.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🤝</div>
+          <h3>Dispute Mediation</h3>
+          <p>Independent, impartial mediation to resolve party wall disputes efficiently and cost-effectively — avoiding lengthy and expensive tribunal proceedings.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📋</div>
+          <h3>Party Wall Notices</h3>
+          <p>Preparation and service of all statutory party wall notices, ensuring full legal compliance before any construction work commences.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📐</div>
+          <h3>Schedules of Condition</h3>
+          <p>Detailed photographic and written records of the adjoining property prior to works — protecting both parties throughout the build process.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Google Reviews -->
+  <section id="reviews-section" style="background:var(--white); padding:5rem 3rem;">
+    <div style="max-width:1100px; margin:0 auto;">
+      <span class="section-label">What Our Clients Say</span>
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:0.5rem;">
+        <h2 class="section-title" style="margin-bottom:0;">Google Reviews</h2>
+        <a href="https://www.google.com/maps/place/Square+One+Consulting/@51.6020843,-0.1957904,17z" target="_blank" style="display:inline-flex; align-items:center; gap:0.5rem; font-size:0.78rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold); text-decoration:none; border:1px solid rgba(201,168,76,0.35); padding:0.45rem 1rem; border-radius:3px; transition:all 0.2s;" onmouseover="this.style.background='rgba(201,168,76,0.1)'" onmouseout="this.style.background='transparent'">
+          View on Google ↗
+        </a>
+      </div>
+      <div class="gold-divider"></div>
+
+      <!-- Overall score bar -->
+      <div id="reviews-summary" style="display:flex; align-items:center; gap:2rem; background:var(--cream); padding:1.8rem 2rem; border-radius:6px; margin-bottom:2.5rem; flex-wrap:wrap;">
+        <div style="text-align:center;">
+          <div id="avg-score" style="font-family:'Cormorant Garamond',serif; font-size:3.5rem; font-weight:700; color:var(--navy); line-height:1;">–</div>
+          <div id="star-display" style="color:#f5b000; font-size:1.4rem; letter-spacing:2px; margin:0.3rem 0;">☆☆☆☆☆</div>
+          <div id="total-reviews" style="font-size:0.78rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--grey);">Loading…</div>
+        </div>
+        <div style="flex:1; min-width:200px;">
+          <p style="font-size:0.95rem; color:#3d4f5e; line-height:1.7;">Real reviews from verified clients on Google. We're proud of the service we deliver and the feedback we receive.</p>
+        </div>
+      </div>
+
+      <!-- Reviews grid -->
+      <div id="reviews-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem;">
+        <div style="text-align:center; padding:3rem; color:var(--grey); grid-column:1/-1;">
+          <div style="font-size:2rem; margin-bottom:1rem;">⏳</div>
+          <p>Loading reviews…</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Strip -->
+  <section style="background:var(--navy); padding:4.5rem 3rem; text-align:center;">
+    <span class="section-label" style="color:var(--gold);">Start Today</span>
+    <h2 class="section-title" style="color:var(--white); max-width:600px; margin:0 auto 1.5rem;">Not Sure Where to Begin?</h2>
+    <p style="color:rgba(255,255,255,0.65); max-width:520px; margin:0 auto 2.2rem; font-size:1rem; line-height:1.8;">Whether you're planning an extension or have received a party wall notice, we're here to guide you through every step.</p>
+    <a onclick="showPage('contact')" class="btn-primary">Book a Free Consultation</a>
+  </section>
+</div>
+
+<!-- ═══ MEDIATION PAGE ═══ -->
+<div id="page-mediation" class="page">
+  <div class="mediation-hero">
+    <div>
+      <span class="hero-eyebrow">Our Services</span>
+      <h1 class="page-hero-title">Party Wall <span>Mediation</span></h1>
+    </div>
+  </div>
+
+  <section>
+    <div class="mediation-intro">
+      <div>
+        <span class="section-label">What We Offer</span>
+        <h2 class="section-title">Resolving Disputes Professionally</h2>
+        <div class="gold-divider"></div>
+        <p class="section-body" style="max-width:100%">When neighbours cannot agree on party wall matters, the process can quickly become stressful and expensive. Square One Consulting acts as a specialist mediator to bring both sides together, protecting everyone's interests while keeping costs under control.</p>
+        <p class="section-body" style="max-width:100%; margin-top:1rem;">Our impartial approach means we have no preference for either the building owner or the adjoining owner — our sole objective is a fair, lawful resolution that allows construction to proceed with confidence.</p>
+        <a onclick="showPage('contact')" class="btn-primary" style="margin-top:2rem; display:inline-block;">Talk to Us Today</a>
+      </div>
+      <div>
+        <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=800&q=80" alt="Mediation meeting" class="mediation-img">
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--cream);">
+    <div style="max-width:1100px; margin:0 auto;">
+      <span class="section-label">The Process</span>
+      <h2 class="section-title">How Mediation Works</h2>
+      <div class="gold-divider"></div>
+      <div class="mediation-steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Initial Assessment</h4>
+            <p>We review the dispute, the relevant notices, and any existing correspondence to understand the full picture before making contact with either party.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Appointment of Agreed Surveyor</h4>
+            <p>Both parties may agree to appoint Square One Consulting as the Agreed Surveyor under Section 10 of the Act — a cost-effective single appointment.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Site Inspection & Schedule of Condition</h4>
+            <p>We attend the site, inspect both properties, and prepare a detailed schedule of condition to protect all parties against future claims.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Award Publication</h4>
+            <p>We prepare and serve a formal Party Wall Award — a legally binding document setting out the rights and obligations of each party throughout the works.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>Post-Works Review</h4>
+            <p>On completion of the works, we carry out a final inspection to confirm no damage has been caused and that all obligations have been met.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--navy); padding:4.5rem 3rem; text-align:center;">
+    <h2 class="section-title" style="color:var(--white); max-width:600px; margin:0 auto 1.5rem;">Ready to Resolve Your Dispute?</h2>
+    <p style="color:rgba(255,255,255,0.65); max-width:480px; margin:0 auto 2rem; font-size:1rem; line-height:1.8;">We aim to respond to all enquiries within one working day. Call us or use the contact form.</p>
+    <a onclick="showPage('contact')" class="btn-primary">Contact Us Now</a>
+  </section>
+</div>
+
+<!-- ═══ PARTY WALL PAGE ═══ -->
+<div id="page-partywall" class="page">
+  <div class="pw-hero">
+    <div>
+      <span class="hero-eyebrow">Your Guide</span>
+      <h1 class="page-hero-title">What is a <span>Party Wall?</span></h1>
+    </div>
+  </div>
+
+  <!-- Intro strip -->
+  <div class="pw-intro-strip">
+    <p>The Party Wall etc. Act 1996 provides a framework for <span>preventing and resolving disputes</span> in relation to party walls, boundary walls, and excavations near neighbouring buildings.</p>
+  </div>
+
+  <div class="pw-sections-wrapper">
+
+    <!-- Block 1 — What is the Party Wall Act -->
+    <div class="pw-block">
+      <div class="pw-text">
+        <span class="section-label">Section One</span>
+        <h2>What is the Party Wall Act?</h2>
+        <div class="gold-divider"></div>
+        <p>The Party Wall etc. Act 1996 is a piece of legislation that came into force in England and Wales on 1 July 1997. It applies to works that directly affect a shared wall, boundary, or structure between two properties — or excavations within certain distances of a neighbouring building.</p>
+        <p>If you intend to carry out any building work that falls under the Act, you are required to serve formal written notice on your neighbours before work begins. Failure to do so can result in injunctions, legal proceedings, and significant delays to your project.</p>
+        <div class="highlight-box">
+          "The Act aims to enable building owners to carry out reasonable works whilst protecting the interests of adjoining owners."
+        </div>
+      </div>
+      <div>
+        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80" alt="Party wall between properties" class="pw-img">
+      </div>
+    </div>
+
+    <!-- Block 2 — Who is the Building Owner (reversed) -->
+    <div class="pw-block reverse">
+      <div class="pw-text">
+        <span class="section-label">Section Two</span>
+        <h2>Who is the Building Owner?</h2>
+        <div class="gold-divider"></div>
+        <p>The <strong>Building Owner</strong> is the person or entity who wishes to carry out the building works. This might be someone planning a rear extension, a loft conversion, underpinning, or any excavation work close to a shared boundary.</p>
+        <p>As the Building Owner, you have specific obligations under the Act. You must serve the appropriate party wall notices in advance — typically 1 or 2 months before work starts, depending on the type of work involved.</p>
+        <p>Importantly, the Act also grants Building Owners certain rights to carry out works that might otherwise be considered a trespass or nuisance — provided the correct procedures are followed.</p>
+        <div class="highlight-box">
+          A Building Owner who fails to serve notice may face an injunction to stop the works until proper notices have been served and an Award made.
+        </div>
+      </div>
+      <div>
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80" alt="Building owner reviewing plans" class="pw-img">
+      </div>
+    </div>
+
+    <!-- Block 3 — Who is the Adjoining Owner -->
+    <div class="pw-block">
+      <div class="pw-text">
+        <span class="section-label">Section Three</span>
+        <h2>Who is the Adjoining Owner?</h2>
+        <div class="gold-divider"></div>
+        <p>The <strong>Adjoining Owner</strong> is any person who owns land, a building, or a flat that is adjacent or in proximity to the proposed works. This includes both freeholders and leaseholders with leases of more than one year.</p>
+        <p>When you receive a party wall notice, you have three options: you can give your written consent to the works, you can dissent and appoint your own surveyor, or you and the Building Owner can jointly appoint an Agreed Surveyor to act impartially on behalf of both parties.</p>
+        <p>It is important to respond to a party wall notice within 14 days. If you do not respond, you are deemed to have dissented, and a Party Wall Surveyor will be appointed on your behalf.</p>
+        <div class="highlight-box">
+          As an Adjoining Owner, you are entitled to have a Party Wall Award drawn up to protect your property — at no cost to you in most cases.
+        </div>
+      </div>
+      <div>
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80" alt="Adjoining property owner" class="pw-img">
+      </div>
+    </div>
+
+  </div><!-- /pw-sections-wrapper -->
+
+  <!-- CTA -->
+  <section style="background:var(--cream); padding:5rem 3rem; text-align:center;">
+    <span class="section-label">Need Advice?</span>
+    <h2 class="section-title" style="max-width:580px; margin:0 auto 1.2rem;">Speak to a Qualified Surveyor</h2>
+    <p style="color:var(--grey); max-width:500px; margin:0 auto 2rem; font-size:1rem; line-height:1.8;">Not sure if the Party Wall Act applies to your project? Contact Square One Consulting for a free initial consultation.</p>
+    <a onclick="showPage('contact')" class="btn-primary">Get Free Advice</a>
+  </section>
+</div>
+
+<!-- ═══ CONTACT PAGE ═══ -->
+<div id="page-contact" class="page">
+  <div class="contact-hero">
+    <div>
+      <span class="hero-eyebrow">Get in Touch</span>
+      <h1 class="page-hero-title">Contact <span>Us</span></h1>
+    </div>
+  </div>
+
+  <section>
+    <div class="contact-wrapper">
+      <div class="contact-info">
+        <span class="section-label">We're Here to Help</span>
+        <h3>Let's Talk About Your Project</h3>
+        <div class="gold-divider"></div>
+        <p class="section-body" style="max-width:100%; margin-bottom:2.5rem;">Whether you have received a party wall notice, are planning works, or have a dispute with a neighbour, our team is ready to help. We respond to all enquiries within one working day.</p>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <div class="contact-detail-text">
+            <strong>Address</strong>
+            <span>Suite 28, 708a High Street, London, N12 9JL</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📞</div>
+          <div class="contact-detail-text">
+            <strong>Phone</strong>
+            <span>0788 999 6841</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">✉️</div>
+          <div class="contact-detail-text">
+            <strong>Email</strong>
+            <span>help@sq1consulting.co.uk</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🕒</div>
+          <div class="contact-detail-text">
+            <strong>Office Hours</strong>
+            <span>Monday – Friday: 8:30am – 6:00pm</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <h3>Send Us a Message</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="John">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Smith">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="john@example.com">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="+44 7700 000000">
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <select>
+            <option value="">Select a topic...</option>
+            <option>Party Wall Notice Received</option>
+            <option>Planning a Building Project</option>
+            <option>Party Wall Dispute</option>
+            <option>General Enquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Your Message</label>
+          <textarea placeholder="Tell us a little about your situation..."></textarea>
+        </div>
+        <button class="btn-primary" style="width:100%; justify-content:center; display:block; padding: 1rem;">Send Enquiry</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">
+        <span class="logo-main">Square One</span>
+        <span class="logo-sub">Consulting · Surveyors</span>
+      </div>
+      <p>Professional party wall surveying and dispute resolution services. Chartered and qualified surveyors operating across London and the South East.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a onclick="showPage('home')">Home</a></li>
+        <li><a onclick="showPage('mediation')">Mediation</a></li>
+        <li><a onclick="showPage('partywall')">What is a Party Wall?</a></li>
+        <li><a onclick="showPage('contact')">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a>help@sq1consulting.co.uk</a></li>
+        <li><a>0788 999 6841</a></li>
+        <li><a>Suite 28, 708a High Street, London N12 9JL</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Square One Consulting. All rights reserved.</p>
+    <p>Party Wall etc. Act 1996 Specialists</p>
+  </div>
+</footer>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.getElementById('nav-' + id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Google Reviews ──
+const PLACE_ID = 'ChIJHSQIiHAXdkgRtuXvHkBgFyI';
+
+function renderStars(n) {
+  return '★'.repeat(n) + '☆'.repeat(5 - n);
+}
+
+function timeAgo(unixTs) {
+  const secs = Math.floor(Date.now() / 1000) - unixTs;
+  if (secs < 3600)  return Math.floor(secs/60) + ' minutes ago';
+  if (secs < 86400) return Math.floor(secs/3600) + ' hours ago';
+  if (secs < 2592000) return Math.floor(secs/86400) + ' days ago';
+  if (secs < 31536000) return Math.floor(secs/2592000) + ' months ago';
+  return Math.floor(secs/31536000) + ' years ago';
+}
+
+function initReviews() {
+  const service = new google.maps.places.PlacesService(document.createElement('div'));
+  service.getDetails({
+    placeId: PLACE_ID,
+    fields: ['rating', 'user_ratings_total', 'reviews']
+  }, (place, status) => {
+    if (status !== google.maps.places.PlacesServiceStatus.OK || !place) {
+      showReviewsError(); return;
+    }
+
+    // Summary bar
+    document.getElementById('avg-score').textContent = place.rating ? place.rating.toFixed(1) : '–';
+    document.getElementById('star-display').textContent = place.rating ? renderStars(Math.round(place.rating)) : '–';
+    document.getElementById('total-reviews').textContent = place.user_ratings_total
+      ? place.user_ratings_total + ' Google Reviews' : '';
+
+    // Cards
+    const grid = document.getElementById('reviews-grid');
+    if (!place.reviews || place.reviews.length === 0) {
+      grid.innerHTML = '<p style="color:var(--grey);grid-column:1/-1;text-align:center;">No reviews found.</p>';
+      return;
+    }
+    grid.innerHTML = place.reviews
+      .filter(r => r.rating >= 1)
+      .map(r => `
+        <div class="review-card">
+          <span class="review-google-icon">G</span>
+          <div class="review-card-header">
+            <div class="review-avatar">${r.author_name.charAt(0).toUpperCase()}</div>
+            <div>
+              <div class="review-name">${r.author_name}</div>
+              <div class="review-date">${timeAgo(r.time)}</div>
+            </div>
+          </div>
+          <div class="review-stars">${renderStars(r.rating)}</div>
+          <p class="review-text">${r.text || '<em>No written review.</em>'}</p>
+        </div>
+      `).join('');
+  });
+}
+
+function showReviewsError() {
+  const grid = document.getElementById('reviews-grid');
+  grid.innerHTML = `
+    <div style="text-align:center;padding:2.5rem;color:var(--grey);grid-column:1/-1;">
+      <p style="margin-bottom:1rem;">Reviews couldn't be loaded automatically.</p>
+      <a href="https://www.google.com/maps/place/Square+One+Consulting/@51.6020843,-0.1957904,17z"
+         target="_blank" class="btn-primary" style="display:inline-block;">Read Reviews on Google ↗</a>
+    </div>`;
+  document.getElementById('total-reviews').textContent = 'See our reviews on Google';
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_API_KEY&libraries=places&callback=initReviews" async defer></script>
+</body>
+</html>
